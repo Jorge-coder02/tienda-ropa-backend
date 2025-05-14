@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 // Definimos el esquema para los productos
 const productSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
-  slug: { type: String, required: true },
+  slug: { type: String, required: true, unique: true },
   precio: { type: Number, required: true },
   descripcion: { type: String, required: true },
   imagen: { type: String, required: true },
