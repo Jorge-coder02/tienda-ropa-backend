@@ -29,7 +29,7 @@ export const getProductBySlug = async (req, res) => {
 };
 
 // Obtener productos por categoría
-export const getProductByCategory = async (req, res) => {
+export const getProductsByCategory = async (req, res) => {
   const { categoria } = req.params;
 
   try {
