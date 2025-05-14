@@ -1,6 +1,7 @@
 const productos = [
   {
     nombre: "Camiseta básica gris",
+    slug: "camiseta-basica-gris",
     precio: 14.99,
     descripcion:
       "Camiseta unisex de algodón 100% con corte clásico, ideal para el día a día.",
@@ -11,6 +12,7 @@ const productos = [
   },
   {
     nombre: "Riñonera negra de nylon",
+    slug: "rinonera-negra-de-nylon",
     precio: 39.99,
     descripcion:
       "Riñonera práctica y resistente, ideal para un look casual y deportivo.",
@@ -21,6 +23,7 @@ const productos = [
   },
   {
     nombre: "Riñonera negra con detalles de diseño",
+    slug: "rinonera-negra-con-detalles-de-diseno",
     precio: 39.99,
     descripcion:
       "Riñonera elegante con detalles modernos, perfecta para el estilo urbano.",
@@ -31,6 +34,7 @@ const productos = [
   },
   {
     nombre: "Pantalón corto negro deportivo",
+    slug: "pantalon-corto-negro-deportivo",
     precio: 29.99,
     descripcion:
       "Pantalón corto de tela ligera, ideal para hacer deporte o para un día caluroso.",
@@ -41,6 +45,7 @@ const productos = [
   },
   {
     nombre: "Shorts azules de denim",
+    slug: "shorts-azules-de-denim",
     precio: 79.99,
     descripcion: "Shorts de denim de corte moderno, versátil para el verano.",
     imagen:
@@ -50,6 +55,7 @@ const productos = [
   },
   {
     nombre: "Abrigo elegante negro con detalles negro",
+    slug: "abrigo-elegante-negro-con-detalles-negro",
     precio: 34.99,
     descripcion:
       "Abrigo de lana de corte estilizado, ideal para la temporada de invierno.",
@@ -60,6 +66,7 @@ const productos = [
   },
   {
     nombre: "Sudadera con capucha denim clara",
+    slug: "sudadera-con-capucha-denim-clara",
     precio: 49.99,
     descripcion:
       "Sudadera de felpa con capucha y corte moderno, cómoda y abrigada.",
@@ -70,6 +77,7 @@ const productos = [
   },
   {
     nombre: "Camiseta amarilla de manga corta",
+    slug: "camiseta-amarilla-de-manga-corta",
     precio: 24.99,
     descripcion:
       "Camiseta fresca y cómoda, ideal para los días soleados de verano.",
@@ -80,6 +88,7 @@ const productos = [
   },
   {
     nombre: "Zapatillas minimalistas beige",
+    slug: "zapatillas-minimalistas-beige",
     precio: 59.99,
     descripcion:
       "Zapatillas de diseño sencillo, cómodas y versátiles para cualquier ocasión.",
@@ -90,6 +99,7 @@ const productos = [
   },
   {
     nombre: "Pantalón vaquero azul clásico",
+    slug: "pantalon-vaquero-azul-clasico",
     precio: 59.99,
     descripcion:
       "Jeans de corte clásico, ideales para un look casual y atemporal.",
@@ -100,6 +110,7 @@ const productos = [
   },
   {
     nombre: "Body blanco ajustado para mujer",
+    slug: "body-blanco-ajustado-para-mujer",
     precio: 12.99,
     descripcion:
       "Body básico de tirantes, ideal para llevar debajo de chaquetas o suéteres.",
@@ -110,6 +121,7 @@ const productos = [
   },
   {
     nombre: "Vestido largo negro con estampado",
+    slug: "vestido-largo-negro-con-estampado",
     precio: 49.99,
     descripcion:
       "Vestido largo con estampado floral, perfecto para ocasiones especiales.",
