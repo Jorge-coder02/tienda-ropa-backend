@@ -33,7 +33,7 @@ export const getProductByCategory = async (req, res) => {
   const { categoria } = req.params;
 
   try {
-    const productos = await Product.find({ categoria });
+    const productos = await Product.find({ categoria: categoria });
 
     if (productos.length === 0) {
       return res
