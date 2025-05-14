@@ -8,6 +8,6 @@ import {
 const router = express.Router();
 router.get("/", getProductos);
 router.get("/:slug", getProductBySlug);
-router.get("/categoria", getProductByCategory);
+router.get("/:categoria", getProductByCategory);
 
 export default router;
