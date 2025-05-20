@@ -8,6 +8,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747157339/camiseta_jak7qk.webp",
     categoria: "camisetas",
+    genero: "hombre",
     stock: 20,
   },
   {
@@ -19,6 +20,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747157340/rinonera_ufcirm.webp",
     categoria: "accesorios",
+    genero: "hombre",
     stock: 15,
   },
   {
@@ -30,6 +32,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747158159/rinonera2_hgf0je.webp",
     categoria: "accesorios",
+    genero: "hombre",
     stock: 15,
   },
   {
@@ -41,6 +44,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747158158/shorts2_eeiflp.webp",
     categoria: "pantalones",
+    genero: "hombre",
     stock: 12,
   },
   {
@@ -51,6 +55,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747158159/shorts3_m5uv7k.webp",
     categoria: "pantalones",
+    genero: "hombre",
     stock: 8,
   },
   {
@@ -62,6 +67,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747159164/coatnegro-removebg-preview_tztfb5.webp",
     categoria: "abrigos",
+    genero: "hombre",
     stock: 10,
   },
   {
@@ -73,6 +79,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747159100/sudaderagris-removebg-preview_adfdrs.webp",
     categoria: "sudaderas",
+    genero: "hombre",
     stock: 14,
   },
   {
@@ -84,6 +91,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747159164/camiamarilla-removebg-preview_i9j20j.webp",
     categoria: "camisetas",
+    genero: "hombre",
     stock: 9,
   },
   {
@@ -95,6 +103,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747157340/zapatillas_hzcjpf.webp",
     categoria: "calzado",
+    genero: "hombre",
     stock: 16,
   },
   {
@@ -106,6 +115,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747159100/vaqueroazul-removebg-preview_ld9ywh.webp",
     categoria: "pantalones",
+    genero: "hombre",
     stock: 25,
   },
   {
@@ -117,6 +127,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747158158/tirantes_edsylv.webp",
     categoria: "ropa interior",
+    genero: "mujer",
     stock: 25,
   },
   {
@@ -128,6 +139,7 @@ const productos = [
     imagen:
       "https://res.cloudinary.com/duos0mjwd/image/upload/v1747158979/vestidonegro_y7sidr.png",
     categoria: "vestidos",
+    genero: "mujer",
     stock: 25,
   },
 ];

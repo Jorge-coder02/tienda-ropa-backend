@@ -28,7 +28,7 @@ export const getProductBySlug = async (req, res) => {
   }
 };
 
-// Obtener productos por categoría
+// 👟 Obtener productos por categoría
 export const getProductsByCategory = async (req, res) => {
   const { categoria } = req.params;
 
@@ -44,6 +44,26 @@ export const getProductsByCategory = async (req, res) => {
     res.json(productos);
   } catch (error) {
     console.error("Error al buscar producto:", error);
+    res.status(500).json({ error: "Error del servidor" });
+  }
+};
+
+// 👫 Obtener productos por género
+export const getProductsByGender = async (req, res) => {
+  const { genero } = req.params;
+
+  try {
+    const productos = await Product.find({ genero: genero });
+
+    if (productos.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No se encontraron productos en este género" });
+    }
+
+    res.json(productos);
+  } catch (error) {
+    console.error("Error al buscar productos:", error);
     res.status(500).json({ error: "Error del servidor" });
   }
 };
