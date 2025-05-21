@@ -69,7 +69,6 @@ export const getProductsByGender = async (req, res) => {
 };
 
 // 👫👟 Obtener productos relacionados (género + categoría), excluyendo el actual
-// Ruta GET con query parameters (ej: /productos/relacionados?categoria=pantalones&genero=mujer)
 export const getRelatedProducts = async (req, res) => {
   try {
     const { categoria, genero } = req.query;
@@ -77,7 +76,7 @@ export const getRelatedProducts = async (req, res) => {
       categoria,
       genero,
       _id: { $ne: req.query.excludeId }, // excluir el producto actual
-    }).limit(6);
+    }).limit(2); // limitar a 3 productos relacionados
     res.json(productos);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener productos relacionados" });
