@@ -71,11 +71,11 @@ export const getProductsByGender = async (req, res) => {
 // 👫👟 Obtener productos relacionados (género + categoría), excluyendo el actual
 export const getRelatedProducts = async (req, res) => {
   try {
-    const { categoria, genero } = req.params;
+    const { categoria, genero, excludeId } = req.params;
     const productos = await Product.find({
       categoria,
       genero,
-      _id: { $ne: req.params.excludeId }, // excluir el producto actual
+      _id: { $ne: excludeId }, // excluir el producto actual
     }).limit(2); // limitar a 3 productos relacionados
     res.json(productos);
   } catch (error) {
