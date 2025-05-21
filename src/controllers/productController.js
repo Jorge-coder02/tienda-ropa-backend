@@ -72,13 +72,16 @@ export const getProductsByGender = async (req, res) => {
 export const getRelatedProducts = async (req, res) => {
   try {
     const { categoria, genero, excludeId } = req.query;
+
     const productos = await Product.find({
       categoria,
       genero,
-      _id: { $ne: excludeId }, // excluir el producto actual
-    }).limit(2); // limitar a 3 productos relacionados
+      _id: { $ne: excludeId },
+    }).limit(3);
+
     res.json(productos);
   } catch (error) {
+    console.error("Error al obtener productos relacionados:", error);
     res.status(500).json({ error: "Error al obtener productos relacionados" });
   }
 };
