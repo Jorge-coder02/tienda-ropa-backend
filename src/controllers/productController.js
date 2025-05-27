@@ -91,7 +91,7 @@ export const getFilteredProducts = async (req, res) => {
   try {
     const { categoria, genero } = req.query;
 
-    if (!categoria || !genero) {
+    if (!genero) {
       return res.status(400).json({ error: "Falta categoría o género" });
     }
 
