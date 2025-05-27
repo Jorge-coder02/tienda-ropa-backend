@@ -95,6 +95,10 @@ export const getFilteredProducts = async (req, res) => {
       return res.status(400).json({ error: "Falta categoría o género" });
     }
 
+    if (categoria === "all" || !categoria) {
+      categoria = "";
+    }
+
     // Filtrar productos por categoría y género
     const productos = await Product.find({
       categoria,
