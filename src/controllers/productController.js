@@ -85,3 +85,25 @@ export const getRelatedProducts = async (req, res) => {
     res.status(500).json({ error: "Error al obtener productos relacionados" });
   }
 };
+
+// 📌👟 Obtener productos por Filtro (género + filtro)
+export const getFilteredProducts = async (req, res) => {
+  try {
+    const { categoria, genero } = req.query;
+
+    if (!categoria || !genero) {
+      return res.status(400).json({ error: "Falta categoría o género" });
+    }
+
+    // Filtrar productos por categoría y género
+    const productos = await Product.find({
+      categoria,
+      genero,
+    });
+
+    res.json(productos);
+  } catch (error) {
+    console.error("Error al obtener productos relacionados:", error);
+    res.status(500).json({ error: "Error al obtener productos relacionados" });
+  }
+};
