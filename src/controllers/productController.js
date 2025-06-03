@@ -129,7 +129,7 @@ export const deleteProductById = async (req, res) => {
 };
 
 // 🔄 Put producto por ID
-const updateProductById = async (req, res) => {
+export const updateProductById = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
 
