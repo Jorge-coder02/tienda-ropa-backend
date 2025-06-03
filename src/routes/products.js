@@ -9,6 +9,7 @@ import {
   deleteProductById,
   updateProductById,
   getCategories,
+  addProduct,
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -27,5 +28,8 @@ router.delete("/:id", deleteProductById); // Delete producto por id
 
 // 🔵 Put
 router.put("/:id", updateProductById); // Delete producto por id
+
+// 🟡 Post
+router.put("/", addProduct); // Añadir nuevo producto
 
 export default router;

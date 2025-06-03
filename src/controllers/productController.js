@@ -147,12 +147,24 @@ export const updateProductById = async (req, res) => {
   }
 };
 
-// 🟢 Categorías
+// 🟢 Get Categorías
 export const getCategories = async (req, res) => {
   try {
     const categorias = await Product.distinct("categoria");
     res.json(categorias);
   } catch (err) {
     res.status(500).json({ error: "Error al obtener categorías" });
+  }
+};
+
+// 🟡 Post Categorías
+export const addProduct = async (req, res) => {
+  try {
+    const nuevoProducto = new Product(req.body);
+    const productoGuardado = await nuevoProducto.save();
+    res.status(201).json(productoGuardado);
+  } catch (error) {
+    console.error("Error al crear producto:", error);
+    res.status(500).json({ mensaje: "Error al crear el producto", error });
   }
 };
