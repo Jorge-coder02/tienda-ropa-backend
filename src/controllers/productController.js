@@ -112,3 +112,17 @@ export const getFilteredProducts = async (req, res) => {
     res.status(500).json({ error: "Error al obtener productos relacionados" });
   }
 };
+
+// ❌ Delete producto by ID
+export const deleteProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const producto = await Product.findByIdAndDelete(id);
+    if (!producto) {
+      res.status(404).json({ msg: "Producto no encontrado" });
+    }
+    res.json({ mensaje: "Producto eliminado correctamente", producto });
+  } catch (error) {
+    res.status(500).json({ msg: "Error en el servidor" });
+  }
+};
