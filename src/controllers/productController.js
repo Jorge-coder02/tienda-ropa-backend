@@ -113,7 +113,7 @@ export const getFilteredProducts = async (req, res) => {
   }
 };
 
-// ❌ Delete producto by ID
+// ❌ Delete producto por ID
 export const deleteProductById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -125,5 +125,24 @@ export const deleteProductById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: "Error en el servidor" });
     console.error("Error en el servidor");
+  }
+};
+
+// 🔄 Put producto por ID
+const updateProductById = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body;
+
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(id, updates, {
+      new: true, // devuelve los productos actualizados, no los anteriores
+      runValidators: true, // se cumplen las reglas del esquema
+    });
+    if (!updatedProduct) {
+      res.status(404).json({ msg: "No se ha encontrado el producto" });
+    }
+    res.json(updatedProduct);
+  } catch (err) {
+    res.status(500).json({ message: "Error actualizando producto" });
   }
 };
