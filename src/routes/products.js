@@ -30,6 +30,6 @@ router.delete("/:id", deleteProductById); // Delete producto por id
 router.put("/:id", updateProductById); // Delete producto por id
 
 // 🟡 Post
-router.put("/", addProduct); // Añadir nuevo producto
+router.post("/", addProduct); // Añadir nuevo producto
 
 export default router;
