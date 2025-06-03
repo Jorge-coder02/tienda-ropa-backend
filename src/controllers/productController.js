@@ -146,3 +146,13 @@ export const updateProductById = async (req, res) => {
     res.status(500).json({ message: "Error actualizando producto" });
   }
 };
+
+// 🟢 Categorías
+export const getCategories = async (req, res) => {
+  try {
+    const categorias = await Product.distinct("categoria");
+    res.json(categorias);
+  } catch (err) {
+    res.status(500).json({ error: "Error al obtener categorías" });
+  }
+};
