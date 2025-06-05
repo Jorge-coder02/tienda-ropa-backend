@@ -7,7 +7,8 @@ const productSchema = new mongoose.Schema({
   slug: { type: String, required: true, unique: true },
   precio: { type: Number, required: true },
   descripcion: { type: String, required: true },
-  imagen: { type: String, required: true },
+  imagen: { type: String, required: true }, // URL de Cloudinary
+  public_id: String, // img public_id de Cloudinary
   categoria: { type: String, required: true },
   genero: { type: String, required: true },
   stock: { type: Number, required: true },
