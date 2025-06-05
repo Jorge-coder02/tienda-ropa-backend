@@ -131,40 +131,45 @@ export const deleteProductById = async (req, res) => {
 
     // Eliminar imagen de Cloudinary si existe public_id
     if (producto.public_id) {
-      console.log(
-        "Intentando eliminar imagen con public_id:",
-        producto.public_id
-      );
       try {
-        const result = await cloudinary.uploader.destroy(producto.public_id);
+        console.log(
+          `Intentando borrar imagen con public_id: ${producto.public_id}`
+        );
+        const result = await cloudinary.uploader.destroy(producto.public_id, {
+          invalidate: true, // Invalida la caché CDN
+        });
+
         console.log("Resultado de Cloudinary:", result);
+
         if (result.result !== "ok") {
-          throw new Error(`Cloudinary error: ${result.result}`);
+          return res.status(400).json({
+            msg: "La imagen no existe en Cloudinary",
+            cloudinaryResult: result,
+          });
         }
-      } catch (error) {
-        console.error("Error detallado de Cloudinary:", error);
-        throw error; // Propaga el error para manejarlo en el catch principal
+      } catch (cloudErr) {
+        console.error("Error detallado de Cloudinary:", cloudErr);
+        return res.status(500).json({
+          msg: "Error al comunicarse con Cloudinary",
+          error: cloudErr.message,
+        });
       }
     }
 
     // Eliminar de la base de datos
     const deletedProduct = await Product.findByIdAndDelete(id);
 
-    if (!deletedProduct) {
-      return res
-        .status(404)
-        .json({ msg: "Producto no encontrado al intentar borrar" });
-    }
-
     res.json({
-      mensaje: "Producto eliminado correctamente",
-      producto: deletedProduct,
+      success: true,
+      message: "Producto eliminado completamente",
+      deletedProduct,
       cloudinaryDeleted: !!producto.public_id,
     });
   } catch (error) {
     console.error("Error completo:", error);
     res.status(500).json({
-      msg: "Error en el servidor al eliminar producto",
+      success: false,
+      msg: "Error en el servidor",
       error: error.message,
       stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
     });
