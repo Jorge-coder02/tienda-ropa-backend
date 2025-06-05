@@ -131,25 +131,19 @@ export const deleteProductById = async (req, res) => {
 
     // Eliminar imagen de Cloudinary si existe public_id
     if (producto.public_id) {
+      console.log(
+        "Intentando eliminar imagen con public_id:",
+        producto.public_id
+      );
       try {
-        const cloudResult = await cloudinary.uploader.destroy(
-          producto.public_id
-        );
-        console.log("Resultado Cloudinary:", cloudResult);
-
-        // Verificar si Cloudinary reportó éxito
-        if (cloudResult.result !== "ok") {
-          return res.status(500).json({
-            msg: "Error al eliminar imagen en Cloudinary",
-            cloudinaryError: cloudResult,
-          });
+        const result = await cloudinary.uploader.destroy(producto.public_id);
+        console.log("Resultado de Cloudinary:", result);
+        if (result.result !== "ok") {
+          throw new Error(`Cloudinary error: ${result.result}`);
         }
-      } catch (cloudErr) {
-        console.error("Error en Cloudinary:", cloudErr);
-        return res.status(500).json({
-          msg: "Error al eliminar imagen en Cloudinary",
-          error: cloudErr.message,
-        });
+      } catch (error) {
+        console.error("Error detallado de Cloudinary:", error);
+        throw error; // Propaga el error para manejarlo en el catch principal
       }
     }
 
