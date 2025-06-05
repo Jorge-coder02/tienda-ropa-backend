@@ -128,8 +128,12 @@ export const deleteProductById = async (req, res) => {
       return res.status(404).json({ msg: "Producto no encontrado" });
     }
     // ✖ Borrar imagen de Cloudinary
-    if (producto.public_id) {
-      await cloudinary.uploader.destroy(producto.public_id);
+    try {
+      if (producto.public_id) {
+        await cloudinary.uploader.destroy(producto.public_id);
+      }
+    } catch (cloudErr) {
+      console.error("Error borrando imagen en Cloudinary:", cloudErr);
     }
     // ✖ Borrar de BBDD
     console.log("❌...  Intentando borrar producto con id:", id);
