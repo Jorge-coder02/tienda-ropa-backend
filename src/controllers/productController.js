@@ -1,3 +1,4 @@
+import cloudinary from "cloudinary";
 import Product from "../models/Product.js";
 
 // Obtener todos los productos
@@ -117,10 +118,18 @@ export const getFilteredProducts = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   const { id } = req.params;
   try {
-    const producto = await Product.findByIdAndDelete(id);
+    // Buscar producto para obtener public_id de la imagen
+    const producto = await Product.findById(id);
     if (!producto) {
-      res.status(404).json({ msg: "Producto no encontrado" });
+      return res.status(404).json({ msg: "Producto no encontrado" });
     }
+    // ✖ Borrar imagen de Cloudinary
+    if (producto.public_id) {
+      await cloudinary.v2.uploader.destroy(producto.public_id);
+    }
+
+    await Product.findByIdAndDelete(id); // ✖ borrar de BBDD
+
     res.json({ mensaje: "Producto eliminado correctamente", producto });
   } catch (error) {
     res.status(500).json({ msg: "Error en el servidor" });
