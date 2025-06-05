@@ -117,6 +117,9 @@ export const getFilteredProducts = async (req, res) => {
 // ❌ Delete producto por ID
 export const deleteProductById = async (req, res) => {
   const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ msg: "ID inválido" });
+  }
 
   try {
     // Buscar producto para obtener public_id img de cloudinary
@@ -134,7 +137,7 @@ export const deleteProductById = async (req, res) => {
 
     res.json({ mensaje: "Producto eliminado correctamente", producto });
   } catch (error) {
-    res.status(500).json({ msg: "Error en el servidor delete" });
+    res.status(500).json({ msg: "Error en el servidor delete", err: error });
     console.error("Error en el servidor", error);
   }
 };
