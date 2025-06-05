@@ -1,6 +1,12 @@
-import cloudinary from "../config/cloudinary.js";
+import cloudinary from "cloudinary";
 import mongoose from "mongoose";
 import Product from "../models/Product.js";
+
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 // Obtener todos los productos
 export const getProductos = async (req, res) => {
@@ -119,59 +125,67 @@ export const getFilteredProducts = async (req, res) => {
 export const deleteProductById = async (req, res) => {
   const { id } = req.params;
 
+  // Validación mejorada del ID
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ msg: "ID inválido" });
+    return res.status(400).json({
+      success: false,
+      error: "ID de producto inválido",
+    });
   }
 
   try {
+    // 1. Buscar el producto
     const producto = await Product.findById(id);
     if (!producto) {
-      return res.status(404).json({ msg: "Producto no encontrado" });
+      return res.status(404).json({
+        success: false,
+        error: "Producto no encontrado",
+      });
     }
 
-    // Eliminar imagen de Cloudinary si existe public_id
+    // 2. Eliminar de Cloudinary (si existe imagen)
     if (producto.public_id) {
       try {
-        console.log(
-          `Intentando borrar imagen con public_id: ${producto.public_id}`
-        );
+        console.log(`Intentando borrar imagen: ${producto.public_id}`);
         const result = await cloudinary.uploader.destroy(producto.public_id, {
-          invalidate: true, // Invalida la caché CDN
+          resource_type: "image",
+          invalidate: true,
+          type: "upload",
         });
-
-        console.log("Resultado de Cloudinary:", result);
 
         if (result.result !== "ok") {
-          return res.status(400).json({
-            msg: "La imagen no existe en Cloudinary",
-            cloudinaryResult: result,
-          });
+          console.error("Cloudinary respondió con error:", result);
+          throw new Error(`Cloudinary error: ${result.result}`);
         }
       } catch (cloudErr) {
-        console.error("Error detallado de Cloudinary:", cloudErr);
-        return res.status(500).json({
-          msg: "Error al comunicarse con Cloudinary",
-          error: cloudErr.message,
-        });
+        console.error("Error en Cloudinary:", cloudErr);
+        // Continuamos aunque falle Cloudinary
       }
     }
 
-    // Eliminar de la base de datos
+    // 3. Eliminar de MongoDB
     const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      throw new Error("El producto no pudo ser eliminado de la base de datos");
+    }
 
+    // Respuesta exitosa
     res.json({
       success: true,
       message: "Producto eliminado completamente",
-      deletedProduct,
-      cloudinaryDeleted: !!producto.public_id,
+      deletedId: id,
     });
   } catch (error) {
-    console.error("Error completo:", error);
+    console.error("Error en deleteProductById:", {
+      message: error.message,
+      stack: error.stack,
+    });
+
     res.status(500).json({
       success: false,
-      msg: "Error en el servidor",
-      error: error.message,
-      stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
+      error: "Error interno del servidor",
+      details:
+        process.env.NODE_ENV === "development" ? error.message : undefined,
     });
   }
 };
