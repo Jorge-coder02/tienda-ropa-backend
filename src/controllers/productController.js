@@ -128,13 +128,13 @@ export const deleteProductById = async (req, res) => {
     if (producto.public_id) {
       await cloudinary.uploader.destroy(public_id);
     }
-
+    console.log(producto.public_id);
     // ✖ Borrar de BBDD
     await Product.findByIdAndDelete(id);
 
     res.json({ mensaje: "Producto eliminado correctamente", producto });
   } catch (error) {
-    res.status(500).json({ msg: "Error en el servidor" });
+    res.status(500).json({ msg: "Error en el servidor delete" });
     console.error("Error en el servidor", error);
   }
 };
