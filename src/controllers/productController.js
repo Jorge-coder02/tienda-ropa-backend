@@ -117,8 +117,9 @@ export const getFilteredProducts = async (req, res) => {
 // ❌ Delete producto por ID
 export const deleteProductById = async (req, res) => {
   const { id } = req.params;
+
   try {
-    // Buscar producto para obtener public_id de la imagen
+    // Buscar producto para obtener public_id img de cloudinary
     const producto = await Product.findById(id);
     if (!producto) {
       return res.status(404).json({ msg: "Producto no encontrado" });
@@ -128,7 +129,8 @@ export const deleteProductById = async (req, res) => {
       await cloudinary.uploader.destroy(public_id);
     }
 
-    await Product.findByIdAndDelete(id); // ✖ borrar de BBDD
+    // ✖ Borrar de BBDD
+    await Product.findByIdAndDelete(id);
 
     res.json({ mensaje: "Producto eliminado correctamente", producto });
   } catch (error) {
