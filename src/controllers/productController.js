@@ -129,7 +129,7 @@ export const deleteProductById = async (req, res) => {
     }
     // ✖ Borrar imagen de Cloudinary
     if (producto.public_id) {
-      await cloudinary.uploader.destroy(public_id);
+      await cloudinary.uploader.destroy(producto.public_id);
     }
     console.log(producto.public_id);
     // ✖ Borrar de BBDD
