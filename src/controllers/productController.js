@@ -135,7 +135,7 @@ export const deleteProductById = async (req, res) => {
     res.json({ mensaje: "Producto eliminado correctamente", producto });
   } catch (error) {
     res.status(500).json({ msg: "Error en el servidor" });
-    console.error("Error en el servidor");
+    console.error("Error en el servidor", error);
   }
 };
 
