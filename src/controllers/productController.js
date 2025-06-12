@@ -1,8 +1,8 @@
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 import Product from "../models/Product.js";
 
-cloudinary.v2.config({
+cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
@@ -30,6 +30,26 @@ export const getProductBySlug = async (req, res) => {
     }
 
     res.json(producto);
+  } catch (error) {
+    console.error("Error al buscar producto:", error);
+    res.status(500).json({ error: "Error del servidor" });
+  }
+};
+
+// 💬 Obtener un producto por su nombre
+export const getProductByName = async (req, res) => {
+  const { nombre } = req.params;
+
+  try {
+    const productos = await Product.find({
+      nombre: { $regex: nombre, $options: "i" }, // la i es para que no sea case-sensitive
+    });
+
+    if (productos.length === 0) {
+      return res.status(404).json({ error: "Productos no encontrados" });
+    }
+
+    res.json(productos); // devuelvo producto/s
   } catch (error) {
     console.error("Error al buscar producto:", error);
     res.status(500).json({ error: "Error del servidor" });
