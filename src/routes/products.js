@@ -9,7 +9,7 @@ import {
   deleteProductById,
   updateProductById,
   getCategories,
-  getProductByName,
+  getProductsByName,
   addProduct,
 } from "../controllers/productController.js";
 
@@ -18,7 +18,7 @@ const router = express.Router();
 // 🟢 Get
 router.get("/", getProductos);
 router.get("/relacionados", getRelatedProducts); // Mover esta ruta arriba
-router.get("/nombre/:nombre", getProductByName); // 💬 por nombre
+router.get("/nombre/:nombre", getProductsByName); // 💬 por nombre
 router.get("/filtro", getFilteredProducts); // 📌 por filtro
 router.get("/categorias", getCategories);
 router.get("/categoria/:categoria", getProductsByCategory); // sin uso

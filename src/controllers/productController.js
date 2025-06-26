@@ -37,7 +37,7 @@ export const getProductBySlug = async (req, res) => {
 };
 
 // 💬 Obtener un producto por su nombre
-export const getProductByName = async (req, res) => {
+export const getProductsByName = async (req, res) => {
   const { nombre } = req.params;
 
   try {
